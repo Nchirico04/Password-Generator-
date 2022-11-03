@@ -29,13 +29,13 @@ const generateEl = document.getElementById('generate');
 const clipboardEl = document.getElementById('clipboard');
 
 const randomFunc = {
-  lower: getrandomlower
+  lower: getrandomlower,
   upper: getRandomUpper,
   number: getRandomNumber,
   symbol: getRandomSymbol 
 
 };
-const typesArr = {lower}, {upper}, {number}, {symbol}]. filter
+const typesArr = {lower}, {upper}, {number}, {symbol}, {filter}
 item => onject.value (item) [o]
 
 
