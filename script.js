@@ -1,67 +1,79 @@
-var upperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-
-var testArray = []
-
-var password=document.getElementById("PRIVATE");
-
- function genPassword() {
-    var chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    var passwordLength = 7;
-    var password = "PRIVATE";
- for (var i = 0; i <= passwordLength; i++) {
-function generatePassword() {
- var randomize = Math.floor(Math.random() * upperCase.length);
- console.log(randomize)
-var randomCharacter = upperCase[randomize]
-console.log(randomCharacter)
-// testArray = testArray + randomCharacter
-testArray = testArray + upperCase
-console.log(testArray)
+// function to grap user criteria
+function getCriteria() {
+  let passLength=prompt("How long do you want your passcode to be? values 8-128 accepted.")
+  passLength=Number(passLength)
+  while( isNaN(passLength) | (passLength < 8 | passLength > 128)){
+    passLength=prompt("Invalid answer. Please pick a number between 8 and 128")
+    passLength=Number(passLength)
+  }
+  let lowerBool=confirm("Would you like to include lowercase characters? Okay for yes, cancel for no.")
+  let upperBool=confirm("Would you like to include uppercase characters? Okay for yes, cancel for no.")
+  let numericBool=confirm("Would you like to include numeric characters? Okay for yes, cancel for no.")
+  let specialBool=confirm("Would you like to include special characters? Okay for yes, cancel for no.")
+  while (!lowerBool & !upperBool & !numericBool & !specialBool) {
+    alert("Please select at  least one character type")
+    lowerBool=confirm("Would you like to include lowercase characters? Okay for yes, cancel for no.")
+    upperBool=confirm("Would you like to include uppercase characters? Okay for yes, cancel for no.")
+    numericBool=confirm("Would you like to include numeric characters? Okay for yes, cancel for no.")
+    specialBool=confirm("Would you like to include special characters? Okay for yes, cancel for no.")  
+  }
+  // keep all user criteria in an object
+  let criteria = {
+    length: passLength,
+    upper: upperBool,
+    lower: lowerBool,
+    numeric: numericBool,
+    special: specialBool,
+  }
+  return criteria
 }
 
+// function to generate the character pool
+function generateCharacterPool(lowerBool,upperBool,numericBool,specialBool) {
+  if (lowerBool) {
+    lower='abcdefghijklmnopqrstuvwxyz'
+  } else {
+    lower=''
+  }
 
-//DOM elements 
-const uppercaseEl = document.getElementsbyID('uppercase');
-const lowercaseEl = dcoument.getElementById('lowercase');
-const numbersEl = document.getElementById('numbers');
-const symbolsEl = document.getElementById('symbols');
-const generateEl = document.getElementById('generate');
-const clipboardEl = document.getElementById('clipboard');
+  if (upperBool) {
+    upper='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  } else {
+    upper=''
+  }
+  if (numericBool) {
+    numeric='0123456789'
+  } else {
+    numeric=''
+  }
+  if (specialBool) {
+    special=" !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+  } else {
+    special=''
+  }
+  return lower + upper + special + numeric
+}
 
-const randomFunc = {
-  lower: getrandomlower,
-  upper: getRandomUpper,
-  number: getRandomNumber,
-  symbol: getRandomSymbol 
+// function to sample at random from the sample space
+function samplePool(pool,n) {
+  pass=[]
+  for (let i=0; i< n; i++) {
+    randIndex=Math.floor(Math.random() * pool.length)
+    pass.push(pool[randIndex])
+  }
+  return pass.join('')
+}
 
-};
-const typesArr = {lower}, {upper}, {number}, {symbol}, {filter}
-item => onject.value (item) [o]
-
-
-generateEl.addEventListener('Click', () => {
-  const lenth = +lengthEl.value;
-
-})
-
+// wrapper function to execute all previous functions at once
+function generatePassword() {
+  criteria=getCriteria()
+  pool=generateCharacterPool(criteria.lower,criteria.upper,criteria.numeric,criteria.special)
+  password = samplePool(pool,criteria.length)
+  return password
+}
 
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-function getrandomlower (
-) {
-  (string.fromcharcode(97)
-  }
-  function getRandomUpper () {
-    return String. fromCharCode(Math.floor(Math.random)Math * 26) + 65);
-function getRandomNumber() {
-  return String.fromCharCode(Math.floor(Math.random( * 10) + 48));
-
-  console.log(getRandomNumber());
-
-
-}
-
-console.log(string.fromcharcode(97))
 
 // Write password to the #password input
 function writePassword() {
